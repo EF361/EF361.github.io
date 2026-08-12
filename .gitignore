@@ -99,3 +99,6 @@ raw_assets/
 *.rar
 *.7z
 
+
+.vercel
+.env*
