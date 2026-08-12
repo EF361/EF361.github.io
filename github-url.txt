@@ -1,0 +1,34 @@
+flappy-bird
+GitHub: https://github.com/EF361/flappy-bird
+
+smart-recycling-robot: 
+GitHub: https://github.com/EF361/recyling_robot
+
+dentai: 
+url: dentai.ainibot.com
+
+mindcraft-puzzle
+url: https://minesweeper-ecru.vercel.app
+
+pdf-fusion-pro
+github: https://github.com/EF361/pdf_merger
+url: https://mergepdfwizard.streamlit.app
+
+elderly-management
+url: https://elderly-care.streamlit.app
+GitHub: https://github.com/EF361/elderly-management-system
+
+epf-calculator
+url: https://ef-epfcalculator.streamlit.app
+GitHub: https://github.com/EF361/epf-calculator
+
+invoice
+url: https://ef-invoice.streamlit.app
+GitHub: https://github.com/EF361/invoice
+
+mermaid-editor: 
+github: https://github.com/EF361/mermaid_editor
+
+icrawler
+url: https://icrawler.streamlit.app
+GitHub: https://github.com/EF361/my_crawler

@@ -1,333 +1,138 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Alicia Goh Ting Ting - AI & Automation Developer">
-    <title>Alicia Goh Ting Ting | AI Developer</title>
-    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Portfolio of Alicia Goh Ting Ting — AI, automation, Python, and thoughtful digital products.">
+    <meta name="theme-color" content="#080a12">
+    <title>Alicia Goh | AI & Automation Developer</title>
+    <link rel="icon" id="favicon" href="images/favicon-dark.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    
-    <!-- Link to external CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    
-    <!-- html2pdf.js CDN for client-side PDF generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="theme.js"></script>
 </head>
 <body>
-
-    <nav>
+    <nav id="navbar" aria-label="Primary navigation">
         <div class="container nav-container">
-            <a href="#" class="logo">Alicia<span>.</span></a>
+            <a href="#home" class="logo" aria-label="Alicia Goh, home">
+                <img id="nav-logo" src="images/logo-dark.png" alt="Alicia Goh" class="nav-logo-img" width="122" height="38">
+            </a>
             <div class="nav-links">
                 <a href="#about" class="nav-link">About</a>
                 <a href="#projects" class="nav-link">Projects</a>
+                <a href="#certifications" class="nav-link">Certificates</a>
                 <a href="#contact" class="nav-link">Contact</a>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light and dark theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12Z"/></svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.53 1.72a.75.75 0 0 1 .16.82A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.46-.69.75.75 0 0 1 .98.98 10.5 10.5 0 1 1-13.73-13.73.75.75 0 0 1 .82.16Z"/></svg>
+                </button>
             </div>
         </div>
     </nav>
 
-    <section class="hero" id="home">
-        <div class="container fade-in">
-            <h3 class="tech-font">System.out.println("Hello, World!");</h3>
-            <h1>Alicia Goh<br>Ting Ting</h1>
-            <p>AI & Automation Developer. Currently focused on Voice Agent RAG systems, n8n backend automation, and building next-gen micro-SaaS tools.</p>
-            
-            <div class="hero-actions">
-                <a href="#" id="download-resume-btn" class="btn btn-neon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-                    Download Resume
-                </a>
-                
-                <div class="social-links">
-                    <a href="https://linkedin.com/in/alitg" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    </a>
-                    <a href="https://github.com/EF361" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    </a>
+    <main>
+        <section class="hero" id="home">
+            <div class="container hero-grid fade-in">
+                <div>
+                    <p class="eyebrow"><span></span> AI · Automation · Product</p>
+                    <h1>I turn ambitious ideas into <span>working systems.</span></h1>
+                    <p class="hero-copy">I’m Alicia, an AI and automation developer building intelligent workflows, useful Python tools, and human-friendly digital products.</p>
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn btn-neon">Explore my work <span aria-hidden="true">↘</span></a>
+                        <a href="references/%5BResume%5D%2004062026.pdf" target="_blank" class="btn btn-quiet">View résumé</a>
+                    </div>
+                </div>
+                <aside class="hero-status" aria-label="Current focus">
+                    <span class="status-dot"></span>
+                    <p>Currently exploring</p>
+                    <strong>Voice agents, RAG systems & workflow automation</strong>
+                    <div class="status-rule"></div>
+                    <span>BSc Artificial Intelligence · UTeM</span>
+                </aside>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container split-heading fade-in">
+                <div>
+                    <p class="eyebrow">01 / About</p>
+                    <h2>Curious by default.<br>Practical by design.</h2>
+                </div>
+                <div class="about-content">
+                    <p>I build at the intersection of <span class="highlight">artificial intelligence, backend automation, and Python</span>. My work ranges from voice-agent RAG systems to compact tools that remove repetitive work.</p>
+                    <p>Alongside my AI degree, I keep learning through projects: testing ideas, shipping interfaces, and turning technical complexity into something people can actually use.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="about">
-        <div class="container fade-in">
-            <h2>About</h2>
-            <div class="about-content">
-                <p>I am a developer specializing in <span class="highlight">Artificial Intelligence, backend automation, and Python-based tools</span>. Currently, I work as an AI Project Intern developing advanced Voice Agent RAG systems.</p>
-                <p>Alongside my academic pursuits in BSc Artificial Intelligence at UTeM, I am actively building a micro-SaaS business focused on <span class="highlight">n8n automation</span> to streamline complex workflows.</p>
-                <p style="margin-bottom: 0;">Beyond the screen, I maintain a balanced lifestyle by working as an assistant swimming coach, blending technical problem-solving with hands-on mentoring.</p>
+        <section id="projects">
+            <div class="container">
+                <div class="section-intro fade-in">
+                    <div>
+                        <p class="eyebrow">02 / Selected work</p>
+                        <h2>Projects with a pulse.</h2>
+                    </div>
+                    <p>Project links come from <code>github-url.txt</code>. Drop new media into a matching project folder and the gallery discovers it automatically.</p>
+                </div>
+                <div class="projects-grid" id="projects-grid" aria-live="polite">
+                    <div class="loading-card">Discovering project files…</div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="projects">
-        <div class="container">
-            <div class="fade-in">
-                <h2>Projects</h2>
+        <section id="certifications">
+            <div class="container">
+                <div class="section-intro fade-in">
+                    <div>
+                        <p class="eyebrow">03 / Learning archive</p>
+                        <h2>Credentials, curated.</h2>
+                    </div>
+                    <p>A short, filterable view of milestones across AI, development, academics, competitions, and music.</p>
+                </div>
+                <div class="filter-bar" id="certificate-filters" role="group" aria-label="Filter certificates"></div>
+                <div class="certs-grid compact" id="certs-grid" aria-live="polite">
+                    <div class="loading-card">Organizing certificates…</div>
+                </div>
+                <button class="show-more-btn" id="show-more-certificates" hidden>Show all certificates</button>
             </div>
-            
-            <!-- Dynamic Projects Container -->
-            <div class="projects-grid" id="projects-grid">
-                <!-- JavaScript will populate this -->
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="certifications">
-        <div class="container">
-            <div class="fade-in">
-                <h2>Certifications</h2>
+        <section id="contact">
+            <div class="container fade-in">
+                <div class="contact-content">
+                    <p class="eyebrow">04 / Let’s connect</p>
+                    <h2>Have a knotty problem?<br><span>Let’s untangle it.</span></h2>
+                    <p>I’m open to thoughtful collaborations, technical challenges, and useful automation ideas.</p>
+                    <div class="contact-actions">
+                        <a href="mailto:aliciagoh0704@gmail.com" class="btn btn-neon">Start a conversation</a>
+                        <a href="https://github.com/EF361" target="_blank" rel="noopener noreferrer" class="text-link">GitHub ↗</a>
+                        <a href="https://linkedin.com/in/alitg" target="_blank" rel="noopener noreferrer" class="text-link">LinkedIn ↗</a>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Dynamic Certifications Container -->
-            <div class="certs-grid" id="certs-grid">
-                <!-- JavaScript will populate this -->
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <section id="contact">
-        <div class="container fade-in">
-            <div class="contact-content">
-                <h2>Initialize Connection</h2>
-                <p>Ready to build something extraordinary? I'm always open to discussing new projects, technical challenges, or automation solutions.</p>
-                
-                <a href="mailto:aliciagoh0704@gmail.com" class="btn btn-neon" style="margin-top: 1rem;">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    Send Transmit
-                </a>
-            </div>
-        </div>
-    </section>
+    <footer><div class="container"><p>© <span id="year"></span> Alicia Goh</p><p>Built to keep growing.</p></div></footer>
 
-    <footer>
-        <div class="container">
-            <p>&copy; <span id="year"></span> Alicia Goh. All systems nominal.</p>
+    <div class="project-modal-overlay" id="project-modal" aria-hidden="true">
+        <div class="project-modal-content" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+            <button class="modal-close" data-close-modal aria-label="Close project details">×</button>
+            <div class="modal-body" id="project-modal-body"></div>
         </div>
-    </footer>
-
-    <!-- Project Modal Overlay -->
-    <div class="project-modal-overlay" id="project-modal" onclick="closeModal(event)">
-        <div class="project-modal-content">
-            <button class="modal-close" onclick="closeModal(event, true)">&times;</button>
-            <div class="modal-body" id="modal-body">
-                <!-- Dynamic content will be injected here -->
-            </div>
+    </div>
+    <div class="cert-modal-overlay" id="cert-modal" aria-hidden="true">
+        <div class="cert-modal-content" role="dialog" aria-modal="true" aria-labelledby="cert-modal-title">
+            <button class="modal-close" data-close-modal aria-label="Close certificate">×</button>
+            <div class="modal-body" id="cert-modal-body"></div>
         </div>
     </div>
 
-    <!-- Hidden HTML template for Resume PDF Generation -->
-    <div id="resume-template-container" style="position: absolute; left: -9999px; top: -9999px;">
-        <!-- The actual template content will be generated dynamically into this container right before PDF generation -->
-    </div>
-
-    <!-- Load Project Data -->
+    <noscript><p class="noscript">Please enable JavaScript to browse the automatically discovered project and certificate files.</p></noscript>
     <script src="projects.js"></script>
     <script src="certificates.js"></script>
-    
-    <script>
-        // Set Current Year
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Render Projects Dynamically
-        const projectsContainer = document.getElementById('projects-grid');
-        
-        if (typeof projectsData !== 'undefined') {
-            projectsData.forEach(project => {
-                const tagsHtml = project.tags.map(tag => `<span class="tech-tag">${tag}</span>`).join('');
-                
-                const projectHTML = `
-                    <div class="project-card fade-in" onclick="openModal(${project.id})">
-                        <div class="project-img-wrapper">
-                            <div class="project-img-placeholder">[ IMAGE NOT FOUND ]</div>
-                            <img src="${project.image}" alt="${project.title}" class="project-img" onerror="this.style.opacity='0'">
-                        </div>
-                        <div class="project-info">
-                            <h3>${project.title}</h3>
-                            <p>${project.description}</p>
-                            <div class="tech-tags">
-                                ${tagsHtml}
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                projectsContainer.innerHTML += projectHTML;
-            });
-        }
-
-        // Render Certificates Dynamically
-        const certsContainer = document.getElementById('certs-grid');
-        
-        if (typeof certificatesData !== 'undefined') {
-            certificatesData.forEach(cert => {
-                const certHTML = `
-                    <div class="cert-card fade-in">
-                        <div>
-                            <h3 class="cert-title">${cert.title}</h3>
-                            <div class="cert-issuer">${cert.issuer}</div>
-                            <div class="cert-date">${cert.date}</div>
-                        </div>
-                        <a href="${cert.credentialLink}" class="cert-link" target="_blank" rel="noopener noreferrer">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 3h7v7h-2V6.41l-8.29 8.3-1.42-1.42L17.59 5H14V3zm-2 16H5V7h7V5H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-7h-2v7z"/></svg>
-                            Verify Credential
-                        </a>
-                    </div>
-                `;
-                certsContainer.innerHTML += certHTML;
-            });
-        }
-
-        // --- Modal Logic ---
-        const modalOverlay = document.getElementById('project-modal');
-        const modalBody = document.getElementById('modal-body');
-
-        function openModal(projectId) {
-            const project = projectsData.find(p => p.id === projectId);
-            if (!project) return;
-            
-            // Build extra images gallery if they exist
-            let galleryHtml = '';
-            if (project.extraImages && project.extraImages.length > 0) {
-                galleryHtml = `
-                    <h4>Gallery</h4>
-                    <div class="modal-gallery">
-                        ${project.extraImages.map(img => `<img src="${img}" alt="${project.title} screenshot" onerror="this.style.display='none'">`).join('')}
-                    </div>
-                `;
-            }
-
-            let githubBtnHtml = '';
-            if (project.githubLink) {
-                githubBtnHtml = `
-                    <a href="${project.githubLink}" target="_blank" rel="noopener noreferrer" class="github-btn-modal">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        View Source Code
-                    </a>
-                `;
-            }
-
-            modalBody.innerHTML = `
-                <h2>${project.title}</h2>
-                ${githubBtnHtml}
-                <div class="tech-tags" style="margin-bottom: 2rem;">
-                    ${project.tags.map(tag => `<span class="tech-tag">${tag}</span>`).join('')}
-                </div>
-                <h4>Overview</h4>
-                <p>${project.fullDescription || project.description}</p>
-                <h4>Motivation</h4>
-                <p>${project.motivation || 'Built to solve complex technical challenges and optimize workflows.'}</p>
-                ${galleryHtml}
-            `;
-            
-            // Lock body scroll
-            document.body.style.overflow = 'hidden';
-            modalOverlay.classList.add('active');
-        }
-
-        function closeModal(event, force = false) {
-            // Close if background is clicked OR force is true (close button clicked)
-            if (force || event.target === modalOverlay) {
-                modalOverlay.classList.remove('active');
-                // Restore body scroll
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        // --- Resume PDF Generation Logic ---
-        document.getElementById('download-resume-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Generate Project HTML list for the PDF
-            const projectsHtmlList = projectsData.map(p => `
-                <div style="margin-bottom: 20px;">
-                    <h4 style="margin: 0 0 5px 0; font-size: 16px; color: #1a1a1a;">${p.title}</h4>
-                    <p style="margin: 0 0 5px 0; font-size: 14px; color: #444;">${p.fullDescription || p.description}</p>
-                    <p style="margin: 0; font-size: 12px; color: #666;"><strong>Technologies:</strong> ${p.tags.join(', ')}</p>
-                </div>
-            `).join('');
-
-            // Build the clean resume HTML structure
-            const resumeContent = `
-                <div style="padding: 40px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #333; background: #fff; line-height: 1.5;">
-                    <div style="border-bottom: 2px solid #00f0ff; padding-bottom: 20px; margin-bottom: 30px;">
-                        <h1 style="margin: 0 0 10px 0; font-size: 32px; color: #111;">Alicia Goh Ting Ting</h1>
-                        <p style="margin: 0; font-size: 14px;">
-                            <strong>Email:</strong> aliciagoh0704@gmail.com &nbsp;|&nbsp; 
-                            <strong>Portfolio:</strong> <a href="https://EF361.github.io" style="color: #00f0ff; text-decoration: none;">EF361.github.io</a> &nbsp;|&nbsp;
-                            <strong>GitHub:</strong> github.com/EF361
-                        </p>
-                    </div>
-                    
-                    <h2 style="margin: 0 0 10px 0; font-size: 20px; color: #111; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #eee; padding-bottom: 5px;">Profile Summary</h2>
-                    <p style="margin: 0 0 30px 0; font-size: 14px;">
-                        AI & Automation Developer specializing in Voice Agent RAG systems and n8n backend automation. Currently building next-gen micro-SaaS tools to streamline complex workflows.
-                    </p>
-                    
-                    <h2 style="margin: 0 0 15px 0; font-size: 20px; color: #111; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #eee; padding-bottom: 5px;">Selected Projects</h2>
-                    ${projectsHtmlList}
-                    
-                    <h2 style="margin: 30px 0 10px 0; font-size: 20px; color: #111; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #eee; padding-bottom: 5px;">Education</h2>
-                    <div style="margin-bottom: 10px;">
-                        <p style="margin: 0; font-size: 14px;"><strong>Universiti Teknikal Malaysia Melaka (UTeM)</strong></p>
-                        <p style="margin: 0; font-size: 14px; color: #555;">BSc in Artificial Intelligence (Current)</p>
-                    </div>
-                    <div>
-                        <p style="margin: 0; font-size: 14px;"><strong>Diploma in Computer Science</strong></p>
-                        <p style="margin: 0; font-size: 14px; color: #555;">CGPA: 3.75</p>
-                    </div>
-                </div>
-            `;
-
-            const container = document.getElementById('resume-template-container');
-            container.innerHTML = resumeContent;
-
-            // Change button state to indicate loading
-            const btn = this;
-            const originalText = btn.innerHTML;
-            btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4V2A10 10 0 0 0 2 12h2a8 8 0 0 1 8-8z"/></svg> Generating PDF...`;
-            
-            // html2pdf options
-            const opt = {
-                margin:       [0, 0, 0, 0], // use inline padding instead for better layout
-                filename:     'Alicia_Goh_Resume.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-
-            // Generate and save
-            html2pdf().set(opt).from(container.firstElementChild).save().then(() => {
-                // Restore button state
-                btn.innerHTML = originalText;
-                // Optional: clear container
-                container.innerHTML = '';
-            });
-        });
-
-        // --- Intersection Observer for Fade-In Animations ---
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(element => {
-            observer.observe(element);
-        });
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
