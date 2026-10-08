@@ -8,9 +8,11 @@
     const DOCUMENT_EXTENSIONS = new Set(["pdf"]);
     const SUPPORTED_EXTENSIONS = new Set([...IMAGE_EXTENSIONS, ...VIDEO_EXTENSIONS, ...DOCUMENT_EXTENSIONS]);
     const MAX_COLLAPSED_CERTIFICATES = 6;
+    const MAX_COLLAPSED_PROJECTS = 4;
 
     const state = {
         projects: [],
+        projectsExpanded: false,
         certificates: [],
         certificateFilter: "All",
         certificatesExpanded: false
@@ -176,7 +178,8 @@
 
     function renderProjects() {
         const container = $("#projects-grid");
-        container.innerHTML = state.projects.map((project, index) => {
+        const visible = state.projectsExpanded ? state.projects : state.projects.slice(0, MAX_COLLAPSED_PROJECTS);
+        container.innerHTML = visible.map((project, index) => {
             const preview = project.images[0]
                 ? `<img src="${fileUrl(project.images[0])}" alt="${escapeHtml(project.title)} preview" loading="lazy" width="720" height="440">`
                 : project.videos[0]
@@ -201,6 +204,14 @@
                     </div>
                 </article>`;
         }).join("");
+
+        const showMore = $("#show-more-projects");
+        if (showMore) {
+            showMore.hidden = state.projects.length <= MAX_COLLAPSED_PROJECTS;
+            showMore.textContent = state.projectsExpanded ? "Show fewer projects" : `Show all ${state.projects.length} projects`;
+            showMore.setAttribute("aria-expanded", String(state.projectsExpanded));
+        }
+
         $$('[data-project-id]', container).forEach(card => {
             const open = () => openProject(card.dataset.projectId);
             card.addEventListener("click", open);
@@ -359,28 +370,255 @@
         sections.forEach(section => observer.observe(section));
     }
 
+    function generateResumeHtml() {
+        const liveDomain = "https://alicia-goh-portfolio.vercel.app";
+        const currentUrl = (window.location.hostname.includes("localhost") || window.location.hostname.includes("127.0.0.1") || !window.location.origin)
+            ? liveDomain
+            : window.location.origin + window.location.pathname;
+
+        const projectItemsHtml = state.projects.map(p => `
+            <li style="margin-bottom: 5px;">
+                <strong>${escapeHtml(p.title)}:</strong> ${escapeHtml(p.description)} 
+                (<a href="${currentUrl}#projects" style="color: #0055bb; text-decoration: underline;">View in Interactive Portfolio</a>)
+            </li>
+        `).join("");
+
+        return `
+            <div id="resume-document" style="font-family: Arial, Helvetica, sans-serif; color: #111111; background: #ffffff; padding: 32px 36px; line-height: 1.45; font-size: 12px;">
+                <!-- HEADER -->
+                <div style="border-bottom: 1.5px solid #222222; padding-bottom: 10px; margin-bottom: 14px;">
+                    <h1 style="margin: 0 0 5px 0; font-size: 23px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #000000; font-family: Arial, sans-serif;">ALICIA GOH TING TING</h1>
+                    <p style="margin: 0 0 4px 0; font-size: 11.5px; color: #333333;">
+                        Melaka, Malaysia &nbsp;|&nbsp; +60 11-1059 6271 &nbsp;|&nbsp; aliciagoh0704@gmail.com
+                    </p>
+                    <p style="margin: 0; font-size: 11.5px; color: #333333;">
+                        LinkedIn: <a href="https://linkedin.com/in/alitg" style="color: #0055bb; text-decoration: underline;">linkedin.com/in/alitg</a> &nbsp;|&nbsp; 
+                        GitHub: <a href="https://github.com/EF361" style="color: #0055bb; text-decoration: underline;">github.com/EF361</a> &nbsp;|&nbsp; 
+                        Portfolio: <a href="${currentUrl}" style="color: #0055bb; text-decoration: underline; font-weight: bold;">Interactive Portfolio Website</a>
+                    </p>
+                </div>
+
+                <!-- SUMMARY -->
+                <div style="margin-bottom: 14px;">
+                    <h2 style="margin: 0 0 5px 0; font-size: 13px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #dddddd; padding-bottom: 2px; letter-spacing: 0.5px; color: #111111;">SUMMARY</h2>
+                    <p style="margin: 0; font-size: 11.5px; color: #222222; text-align: justify; line-height: 1.48;">
+                        AI Automation Engineer and Computer Science undergraduate specializing in Artificial Intelligence. Expert in developing secure, local-first Python applications, building industrial-grade RAG systems, and designing n8n automation workflows. Proven ability to lead end-to-end technical projects and manage client solutions while maintaining a 3.66 CGPA. Seeking an Industrial Trainee position (Oct 2026) to apply advanced Python, Machine Learning, and Process Automation skills.
+                    </p>
+                </div>
+
+                <!-- EDUCATION -->
+                <div style="margin-bottom: 14px;">
+                    <h2 style="margin: 0 0 6px 0; font-size: 13px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #dddddd; padding-bottom: 2px; letter-spacing: 0.5px; color: #111111;">EDUCATION</h2>
+                    
+                    <div style="margin-bottom: 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <strong style="font-size: 12px; color: #000000;">Universiti Teknikal Malaysia Melaka (UTeM)</strong>
+                            <span style="font-size: 11px; color: #555555;">Mar 2025 – Feb 2027</span>
+                        </div>
+                        <div style="font-size: 11.5px; color: #333333;">Bachelor of Computer Science (Artificial Intelligence) with Honours</div>
+                        <ul style="margin: 2px 0 0 16px; padding: 0; font-size: 11px; color: #333333;">
+                            <li>CGPA: 3.66 / 4.00</li>
+                            <li>Core Coursework: Machine Learning, Natural Language Processing, Image Processing and Recognition, Neural Networks, Evolutionary Computing.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <strong style="font-size: 12px; color: #000000;">Universiti Teknikal Malaysia Melaka (UTeM)</strong>
+                            <span style="font-size: 11px; color: #555555;">Aug 2022 – Feb 2025</span>
+                        </div>
+                        <div style="font-size: 11.5px; color: #333333;">Diploma in Computer Science</div>
+                        <ul style="margin: 2px 0 0 16px; padding: 0; font-size: 11px; color: #333333;">
+                            <li>Awards: Dean's Award Recipient, Program Director Recognition Award.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- TECHNICAL SKILLS -->
+                <div style="margin-bottom: 14px;">
+                    <h2 style="margin: 0 0 6px 0; font-size: 13px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #dddddd; padding-bottom: 2px; letter-spacing: 0.5px; color: #111111;">TECHNICAL SKILLS</h2>
+                    <ul style="margin: 0 0 0 16px; padding: 0; font-size: 11px; color: #333333; line-height: 1.5;">
+                        <li><strong>Programming:</strong> Python, SQL, JavaScript</li>
+                        <li><strong>AI &amp; Data Science:</strong> Retrieval-Augmented Generation (RAG), Machine Learning, Generative AI, Natural Language Processing (NLP), Vector Databases</li>
+                        <li><strong>Automation &amp; Tools:</strong> n8n Workflows, Streamlit, PyPDF, Pandas, Pygame, Micropython, Git</li>
+                    </ul>
+                </div>
+
+                <!-- PROFESSIONAL EXPERIENCE -->
+                <div style="margin-bottom: 14px;">
+                    <h2 style="margin: 0 0 6px 0; font-size: 13px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #dddddd; padding-bottom: 2px; letter-spacing: 0.5px; color: #111111;">PROFESSIONAL EXPERIENCE</h2>
+                    
+                    <div style="margin-bottom: 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <strong style="font-size: 12px; color: #000000;">Meta AI Sdn Bhd | Malacca, Malaysia</strong>
+                            <span style="font-size: 11px; color: #555555;">July 2024 – Present</span>
+                        </div>
+                        <div style="font-size: 11.5px; color: #333333; font-style: italic;">AI Developer / Internship Trainee</div>
+                        <ul style="margin: 2px 0 0 16px; padding: 0; font-size: 11px; color: #333333; line-height: 1.45;">
+                            <li>Built AI call center workflows and developed automated n8n pipelines to reduce manual administrative tasks.</li>
+                            <li>Developed an AI-powered WhatsApp chatbot for JJ Deco Plus Sdn Bhd to improve customer interaction and response times.</li>
+                            <li>Designed AI influencer systems for social platforms and applied NLP for effective query handling.</li>
+                            <li>Conducted rigorous testing and debugging to ensure chatbot reliability before deployment.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <strong style="font-size: 12px; color: #000000;">Xiao Wan Zi Swimming Centre | Melaka, Malaysia</strong>
+                            <span style="font-size: 11px; color: #555555;">June 2025 – Present</span>
+                        </div>
+                        <div style="font-size: 11.5px; color: #333333; font-style: italic;">Assistant Swim Coach</div>
+                        <ul style="margin: 2px 0 0 16px; padding: 0; font-size: 11px; color: #333333; line-height: 1.45;">
+                            <li>Managed assigned student rosters, taking direct responsibility for teaching and scheduling.</li>
+                            <li>Applied performance analysis to customize training plans, ensuring consistent technique improvement.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- KEY TECHNICAL PROJECTS -->
+                <div>
+                    <h2 style="margin: 0 0 6px 0; font-size: 13px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #dddddd; padding-bottom: 2px; letter-spacing: 0.5px; color: #111111;">KEY TECHNICAL PROJECTS</h2>
+                    <ul style="margin: 0 0 0 16px; padding: 0; font-size: 11px; color: #333333; line-height: 1.5;">
+                        ${projectItemsHtml}
+                    </ul>
+                    <p style="margin: 10px 0 0 0; font-size: 10.5px; color: #666666; font-style: italic;">
+                        * To explore full media assets, video demos, and project posters, visit the <a href="${currentUrl}" style="color: #0055bb; text-decoration: underline;">Interactive Portfolio Website</a>.
+                    </p>
+                </div>
+            </div>
+        `;
+    }
+
+    function initResumeEvents() {
+        const btn = $("#view-resume-btn");
+        if (!btn) return;
+
+        btn.addEventListener("click", async event => {
+            event.preventDefault();
+            const originalText = btn.innerHTML;
+            btn.innerHTML = "Building résumé PDF…";
+            btn.style.pointerEvents = "none";
+
+            const container = document.createElement("div");
+            container.style.position = "absolute";
+            container.style.left = "-9999px";
+            container.style.top = "-9999px";
+            container.innerHTML = generateResumeHtml();
+            document.body.appendChild(container);
+
+            const options = {
+                margin: [0.35, 0.4, 0.35, 0.4],
+                filename: "Alicia_Goh_Resume.pdf",
+                image: { type: "jpeg", quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
+            };
+
+            try {
+                if (typeof html2pdf === "function") {
+                    await html2pdf().set(options).from(container.firstElementChild).save();
+                } else {
+                    window.open("references/%5BResume%5D%2004062026.pdf", "_blank");
+                }
+            } catch {
+                window.open("references/%5BResume%5D%2004062026.pdf", "_blank");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.style.pointerEvents = "auto";
+                container.remove();
+            }
+        });
+    }
+
+    function initFooter() {
+        const backToTopBtn = $("#back-to-top");
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener("click", () => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+        }
+
+        const timeElement = $("#footer-time");
+        if (timeElement) {
+            const updateTime = () => {
+                try {
+                    const now = new Date();
+                    const formatted = new Intl.DateTimeFormat("en-US", {
+                        timeZone: "Asia/Kuala_Lumpur",
+                        hour: "numeric",
+                        minute: "2-digit",
+                        hour12: true
+                    }).format(now);
+                    timeElement.textContent = `${formatted} GMT+8`;
+                } catch {
+                    timeElement.textContent = "Melaka, MY (GMT+8)";
+                }
+            };
+            updateTime();
+            setInterval(updateTime, 30000);
+        }
+    }
+
     async function initialize() {
         $("#year").textContent = new Date().getFullYear();
         initModalEvents();
         initAnimations();
         initNavigation();
+        initResumeEvents();
+        initFooter();
         $("#show-more-certificates").addEventListener("click", () => {
             state.certificatesExpanded = !state.certificatesExpanded;
             renderCertificates();
         });
+        $("#show-more-projects")?.addEventListener("click", () => {
+            state.projectsExpanded = !state.projectsExpanded;
+            renderProjects();
+        });
 
-        const [linkData, paths] = await Promise.all([
-            readProjectLinks(),
+        let firestoreProjects = [];
+        if (window.FirebaseService && typeof window.FirebaseService.getProjects === "function") {
+            try {
+                firestoreProjects = await window.FirebaseService.getProjects();
+            } catch (e) {
+                console.warn("Firestore fetch fallback:", e);
+            }
+        }
+
+        if (firestoreProjects && firestoreProjects.length > 0) {
+            state.projects = firestoreProjects.map(p => ({
+                id: p.id,
+                title: p.title || p.id,
+                description: p.description || "",
+                tags: p.tags || ["Project"],
+                githubLink: p.githubLink || "",
+                demoLink: p.demoLink || "",
+                images: p.images || [],
+                videos: p.videos || [],
+                documents: p.documents || []
+            }));
+        } else {
+            const [linkData, paths] = await Promise.all([
+                readProjectLinks(),
+                discoverRepositoryFiles().catch(() => null)
+            ]);
+            const localFallbackPaths = [
+                ...Object.values(typeof projectAssetFallback === "object" ? projectAssetFallback : {}).flat(),
+                ...(typeof certificateAssetFallback === "object" ? certificateAssetFallback : [])
+            ];
+            const isLocalPreview = ["", "localhost", "127.0.0.1"].includes(window.location.hostname);
+            const repositoryPaths = isLocalPreview ? localFallbackPaths : (paths || localFallbackPaths);
+            state.projects = buildProjects(linkData, collectProjectAssets(repositoryPaths));
+        }
+
+        const [_, pathsForCerts] = await Promise.all([
+            Promise.resolve(),
             discoverRepositoryFiles().catch(() => null)
         ]);
-        const localFallbackPaths = [
-            ...Object.values(typeof projectAssetFallback === "object" ? projectAssetFallback : {}).flat(),
+        const certFallbackPaths = [
             ...(typeof certificateAssetFallback === "object" ? certificateAssetFallback : [])
         ];
-        const isLocalPreview = ["", "localhost", "127.0.0.1"].includes(window.location.hostname);
-        const repositoryPaths = isLocalPreview ? localFallbackPaths : (paths || localFallbackPaths);
-        state.projects = buildProjects(linkData, collectProjectAssets(repositoryPaths));
-        state.certificates = buildCertificates(repositoryPaths);
+        state.certificates = buildCertificates(pathsForCerts || certFallbackPaths);
+
         renderProjects();
         renderCertificateFilters();
         renderCertificates();

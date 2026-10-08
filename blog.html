@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Engineering log and app build stories by Alicia Goh Ting Ting — AI, automation, Python applications, and robotics prototypes.">
+    <meta name="theme-color" content="#080a12">
+    <title>Blog & Build Stories | Alicia Goh</title>
+    <link rel="icon" id="favicon" href="images/favicon-dark.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+</head>
+<body class="blog-page">
+    <nav id="navbar" aria-label="Primary navigation">
+        <div class="container nav-container">
+            <a href="index.html#home" class="logo" aria-label="Alicia Goh, home">
+                <img id="nav-logo" src="images/logo-dark.svg" alt="Alicia Goh" class="nav-logo-img" width="160" height="38">
+            </a>
+            <div class="nav-links">
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#projects" class="nav-link">Projects</a>
+                <a href="index.html#certifications" class="nav-link">Certificates</a>
+                <a href="blog.html" class="nav-link active">Blog</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light and dark theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12Z"/></svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.53 1.72a.75.75 0 0 1 .16.82A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.46-.69.75.75 0 0 1 .98.98 10.5 10.5 0 1 1-13.73-13.73.75.75 0 0 1 .82.16Z"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <!-- LIST VIEW -->
+        <div id="blog-list-view">
+            <section class="blog-hero">
+                <div class="container fade-in">
+                    <p class="eyebrow"><span></span> Engineering Log &amp; Build Stories</p>
+                    <h1>Behind the build: <span>apps, algorithms &amp; automation.</span></h1>
+                    <p class="hero-copy">Detailed write-ups on building intelligent systems, local-first Python tools, and robotics prototypes. Architectural breakdowns, lessons learned, and the technical stories behind my projects.</p>
+                    <div class="hero-actions">
+                        <button id="open-new-post-modal" class="btn btn-neon" type="button">
+                            + Write New Post
+                        </button>
+                        <a href="index.html#projects" class="btn btn-quiet">Explore Portfolio ↘</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="blog-feed-section">
+                <div class="container">
+                    <div class="blog-controls-bar">
+                        <div class="blog-search-wrap">
+                            <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                                <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="m21 21-4.35-4.35M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/>
+                            </svg>
+                            <input type="text" id="blog-search" class="blog-search-input" placeholder="Search by app, keyword, or technology…" aria-label="Search blog posts">
+                        </div>
+                        <div class="filter-bar" id="category-filters" role="group" aria-label="Filter blog posts by category"></div>
+                    </div>
+
+                    <div class="blog-grid" id="blog-grid" aria-live="polite">
+                        <!-- Populated by blog.js -->
+                    </div>
+
+                    <div id="blog-empty" class="blog-empty-state" hidden>
+                        <h3>No articles found</h3>
+                        <p>Try adjusting your search terms or selecting a different category filter.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ARTICLE READER VIEW -->
+        <div id="blog-article-view" hidden>
+            <div class="container article-container">
+                <article id="article-content" class="article-wrapper fade-in">
+                    <!-- Populated dynamically by blog.js -->
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- NEW POST HELPER MODAL -->
+    <div class="project-modal-overlay" id="new-post-modal" aria-hidden="true">
+        <div class="project-modal-content blog-composer-modal" role="dialog" aria-modal="true" aria-labelledby="composer-modal-title">
+            <button class="modal-close" id="close-new-post-modal" aria-label="Close composer">×</button>
+            <div class="modal-body">
+                <p class="eyebrow"><span></span> Content Publisher</p>
+                <h2 id="composer-modal-title">Publish a New App Post</h2>
+                <p class="modal-lead">Draft your article below. You can preview it immediately in your browser, or copy the formatted JavaScript object directly into <code>posts.js</code>!</p>
+                
+                <div id="copy-success-notice" class="composer-alert" style="display: none;"></div>
+
+                <form id="new-post-form" class="composer-form" onsubmit="event.preventDefault();">
+                    <div class="form-row form-row-2">
+                        <div class="form-group">
+                            <label for="post-title">Post Title *</label>
+                            <input type="text" id="post-title" class="form-input" placeholder="e.g. Building DentAI Analytics: AI Dental Imaging" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="post-slug">URL Slug / ID *</label>
+                            <input type="text" id="post-slug" class="form-input" placeholder="e.g. dentai-analytics" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row form-row-3">
+                        <div class="form-group">
+                            <label for="post-app-title">Featured App Name</label>
+                            <input type="text" id="post-app-title" class="form-input" placeholder="e.g. DentAI Analytics">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-date">Publish Date</label>
+                            <input type="text" id="post-date" class="form-input" placeholder="e.g. Oct 2026">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-read-time">Read Time</label>
+                            <input type="text" id="post-read-time" class="form-input" placeholder="e.g. 5 min read">
+                        </div>
+                    </div>
+
+                    <div class="form-row form-row-2">
+                        <div class="form-group">
+                            <label for="post-app-url">Live App Demo URL</label>
+                            <input type="url" id="post-app-url" class="form-input" placeholder="https://your-app.streamlit.app">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-github-url">GitHub Repository URL</label>
+                            <input type="url" id="post-github-url" class="form-input" placeholder="https://github.com/EF361/...">
+                        </div>
+                    </div>
+
+                    <div class="form-row form-row-2">
+                        <div class="form-group">
+                            <label for="post-cover-image">Cover Image Path</label>
+                            <input type="text" id="post-cover-image" class="form-input" placeholder="images/projects/dentai/analytics-page.png">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-tags">Tags (comma-separated)</label>
+                            <input type="text" id="post-tags" class="form-input" placeholder="AI, Python, Computer Vision">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post-excerpt">Short Excerpt / Teaser *</label>
+                        <input type="text" id="post-excerpt" class="form-input" placeholder="1-2 sentences summarizing the app and what makes it interesting." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post-content-body">Article Content (Markdown or HTML) *</label>
+                        <textarea id="post-content-body" class="form-textarea" rows="10" placeholder="Write your post here! You can use normal paragraphs, or '## Section Header', or HTML tags like <h2>, <p>, <ul>, <pre><code>..." required></textarea>
+                    </div>
+
+                    <div class="composer-actions">
+                        <button type="button" id="copy-post-code-btn" class="btn btn-neon">
+                            📋 Copy Code for posts.js
+                        </button>
+                        <button type="button" id="save-post-local-btn" class="btn btn-quiet">
+                            ⚡ Save &amp; View on Site
+                        </button>
+                    </div>
+                </form>
+
+                <div class="code-preview-wrap">
+                    <p class="code-preview-label">Live Generated JSON / Object Snippet:</p>
+                    <pre><code id="generated-post-code">// Fill in the form fields above to preview generated code...</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <button id="back-to-top" class="footer-back-to-top" type="button" aria-label="Back to the top">
+                        Back to the Top ↑
+                    </button>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-col-title">Page</p>
+                    <div class="footer-nav">
+                        <a href="index.html#home">Home</a>
+                        <a href="index.html#about">About</a>
+                        <a href="index.html#projects">Portfolio</a>
+                        <a href="index.html#certifications">Certificates</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="admin.html">Admin</a>
+                        <a href="index.html#contact">Contact</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-col-title">Focus</p>
+                    <div class="footer-nav">
+                        <span>AI &amp; Machine Learning</span>
+                        <span>Voice Agents &amp; RAG</span>
+                        <span>Workflow Automation</span>
+                        <span>Python Engineering</span>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-col-title">Featured</p>
+                    <div class="footer-nav">
+                        <a href="blog.html#dentai-analytics">DentAI Analytics Post</a>
+                        <a href="blog.html#smart-recycling-robot">Recycling Robot Post</a>
+                        <a href="blog.html#pdf-fusion-pro">PDF Fusion Pro Post</a>
+                        <a href="blog.html#custom-flappy-bird">Custom Flappy Bird Post</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-col-title">Connect</p>
+                    <div class="footer-social-links">
+                        <a href="https://github.com/EF361" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="footer-social-link">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://linkedin.com/in/alitg" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="footer-social-link">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <a href="mailto:aliciagoh0704@gmail.com" aria-label="Email" class="footer-social-link">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col footer-time-col">
+                    <div id="footer-time" class="footer-time">--:-- -- GMT+8</div>
+                    <div class="footer-location">Melaka, MY</div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">Copyright © Alicia Goh Ting Ting 2024–<span id="year">2026</span></p>
+                <p class="footer-tagline">Built to keep growing.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK v10 (Compat bundles for static web) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="posts.js"></script>
+    <script src="blog.js"></script>
+</body>
+</html>

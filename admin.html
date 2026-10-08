@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Admin CMS Portal for Alicia Goh Ting Ting's portfolio and engineering blog.">
+    <meta name="theme-color" content="#080a12">
+    <title>Portfolio &amp; Blog CMS | Alicia Goh</title>
+    <link rel="icon" id="favicon" href="images/favicon-dark.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+
+    <!-- Firebase SDK v10 (Compat bundles for static web) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+
+    <!-- Local Fallback Data (for 1-click seeding) -->
+    <script src="projects.js"></script>
+    <script src="posts.js"></script>
+    <script src="firebase-config.js"></script>
+</head>
+<body class="admin-body">
+    <!-- TOP NAVIGATION -->
+    <header class="admin-nav-bar">
+        <div class="admin-nav-inner">
+            <div class="admin-nav-brand">
+                <a href="index.html" class="logo" aria-label="Alicia Goh, home">
+                    <img id="nav-logo" src="images/logo-dark.svg" alt="Alicia Goh" class="nav-logo-img" width="140" height="34">
+                </a>
+                <span class="admin-badge">PORTFOLIO CMS</span>
+            </div>
+
+            <div class="admin-nav-actions">
+                <a href="index.html" target="_blank" class="admin-nav-link">Live Site ↗</a>
+                <a href="blog.html" target="_blank" class="admin-nav-link">Live Blog ↗</a>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light and dark theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12Z"/></svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.53 1.72a.75.75 0 0 1 .16.82A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.46-.69.75.75 0 0 1 .98.98 10.5 10.5 0 1 1-13.73-13.73.75.75 0 0 1 .82.16Z"/></svg>
+                </button>
+                <button id="admin-logout-btn" class="btn btn-quiet btn-sm" style="display: none;" type="button">
+                    Sign Out
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <!-- 1. LOGIN SCREEN -->
+        <section id="login-section" class="admin-login-screen">
+            <div class="admin-login-card fade-in">
+                <div class="login-badge-wrap">
+                    <span class="status-dot"></span>
+                    <span>Admin Authentication</span>
+                </div>
+                <h2>Manage Portfolio &amp; Blog</h2>
+                <p>Sign in with your authorized Google Account (<code>aliciagoh0704@gmail.com</code>) to manage projects, publish articles, and upload media to Firebase.</p>
+
+                <div id="login-error-msg" class="admin-alert error" style="display: none;"></div>
+
+                <button id="google-login-btn" class="btn btn-neon btn-lg" type="button">
+                    <svg viewBox="0 0 24 24" width="18" height="18" style="margin-right: 6px;" fill="currentColor">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+                    </svg>
+                    Sign in with Google
+                </button>
+
+                <div class="login-footer-info">
+                    <span>Protected by Cloud Firestore &amp; Storage Rules</span>
+                    <a href="index.html" class="text-link">← Return to website</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. DASHBOARD SCREEN (Visible when authenticated) -->
+        <section id="dashboard-section" class="admin-dashboard-container" style="display: none;">
+            <div class="admin-container">
+                <!-- Welcome Banner -->
+                <div class="admin-header-bar fade-in">
+                    <div>
+                        <p class="eyebrow"><span></span> Dashboard</p>
+                        <h1 class="admin-heading">Welcome back, <span id="admin-user-name">Alicia</span></h1>
+                        <p class="admin-subheading">Connected to Firebase Project: <code>alicia-goh-portfolio</code></p>
+                    </div>
+                    <div class="admin-header-actions">
+                        <button id="quick-add-project-btn" class="btn btn-neon btn-sm">+ New Project</button>
+                        <button id="quick-add-post-btn" class="btn btn-quiet btn-sm">+ New Blog Post</button>
+                    </div>
+                </div>
+
+                <!-- Tabs Bar -->
+                <nav class="admin-tabs" role="tablist">
+                    <button class="admin-tab active" data-tab="projects" role="tab" aria-selected="true">
+                        📁 Projects (<span id="count-projects">0</span>)
+                    </button>
+                    <button class="admin-tab" data-tab="posts" role="tab" aria-selected="false">
+                        📝 Blog Posts (<span id="count-posts">0</span>)
+                    </button>
+                    <button class="admin-tab" data-tab="sync" role="tab" aria-selected="false">
+                        ⚡ Database &amp; Sync
+                    </button>
+                </nav>
+
+                <!-- TAB 1: PROJECTS -->
+                <div id="tab-content-projects" class="admin-tab-content active">
+                    <div class="tab-toolbar">
+                        <div class="toolbar-search">
+                            <input type="text" id="project-search-input" class="form-input" placeholder="Search projects by title, tag, or technology…">
+                        </div>
+                        <button id="create-project-btn" class="btn btn-neon btn-sm">+ Add Project</button>
+                    </div>
+
+                    <div id="projects-admin-list" class="admin-cards-grid" aria-live="polite">
+                        <div class="loading-card">Loading projects from Firestore…</div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: BLOG POSTS -->
+                <div id="tab-content-posts" class="admin-tab-content" style="display: none;">
+                    <div class="tab-toolbar">
+                        <div class="toolbar-search">
+                            <input type="text" id="post-search-input" class="form-input" placeholder="Search articles by title, tag, or topic…">
+                        </div>
+                        <button id="create-post-btn" class="btn btn-neon btn-sm">+ Add Blog Post</button>
+                    </div>
+
+                    <div id="posts-admin-list" class="admin-cards-grid" aria-live="polite">
+                        <div class="loading-card">Loading blog posts from Firestore…</div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: DATABASE & SYNC -->
+                <div id="tab-content-sync" class="admin-tab-content" style="display: none;">
+                    <div class="sync-grid">
+                        <div class="sync-card">
+                            <h3>🚀 1-Click Firestore Seed</h3>
+                            <p>Instantly migrate all 10 local projects (from <code>projects.js</code>) and 4 blog posts (from <code>posts.js</code>) directly into your Cloud Firestore database!</p>
+                            <button id="seed-firestore-btn" class="btn btn-neon">Seed Existing Data to Firestore</button>
+                            <div id="seed-status" class="sync-status-box" style="display: none;"></div>
+                        </div>
+
+                        <div class="sync-card">
+                            <h3>📦 Firebase Storage Setup</h3>
+                            <p>To enable direct image and video uploads to your Firebase Storage bucket, open the Firebase Console and click <strong>"Get Started"</strong> in the Storage tab:</p>
+                            <a href="https://console.firebase.google.com/project/alicia-goh-portfolio/storage" target="_blank" rel="noopener noreferrer" class="btn btn-quiet">
+                                Open Firebase Storage Console ↗
+                            </a>
+                            <p class="help-text" style="margin-top: 10px;">Note: You can also paste external URLs for images and videos at any time!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PROJECT EDITOR MODAL -->
+    <div class="project-modal-overlay" id="project-modal" aria-hidden="true">
+        <div class="project-modal-content admin-modal-content" role="dialog" aria-modal="true" aria-labelledby="project-modal-heading">
+            <button class="modal-close" id="close-project-modal" aria-label="Close modal">×</button>
+            <div class="modal-body">
+                <p class="eyebrow"><span></span> Project Editor</p>
+                <h2 id="project-modal-heading">Add New Project</h2>
+
+                <form id="project-form" class="admin-form" onsubmit="event.preventDefault();">
+                    <input type="hidden" id="edit-project-is-edit" value="false">
+
+                    <div class="form-row form-row-2">
+                        <div class="form-group">
+                            <label for="proj-title">Project Title *</label>
+                            <input type="text" id="proj-title" class="form-input" placeholder="e.g. DentAI Analytics" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="proj-id">Project ID / Slug *</label>
+                            <input type="text" id="proj-id" class="form-input" placeholder="e.g. dentai" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proj-desc">Description *</label>
+                        <textarea id="proj-desc" class="form-textarea" rows="3" placeholder="Brief summary of what this application does..." required></textarea>
+                    </div>
+
+                    <div class="form-row form-row-2">
+                        <div class="form-group">
+                            <label for="proj-tags">Tags (comma-separated)</label>
+                            <input type="text" id="proj-tags" class="form-input" placeholder="AI, Computer Vision, Python">
+                        </div>
+                        <div class="form-group">
+                            <label for="proj-order">Display Order</label>
+                            <input type="number" id="proj-order" class="form-input" value="1" min="1">
+                        </div>
+                    </div>
+
+                    <div class="form-row form-row-2">
+                        <div class="form-group">
+                            <label for="proj-demo-url">Live Demo / App URL</label>
+                            <input type="url" id="proj-demo-url" class="form-input" placeholder="https://dentai.ainibot.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="proj-github-url">GitHub Repository URL</label>
+                            <input type="url" id="proj-github-url" class="form-input" placeholder="https://github.com/EF361/...">
+                        </div>
+                    </div>
+
+                    <!-- MEDIA UPLOADER SECTION -->
+                    <div class="media-uploader-box">
+                        <label class="uploader-header">
+                            <strong>Project Media Assets (Images, Videos, PDFs)</strong>
+                            <span>Upload files to Storage or paste URLs</span>
+                        </label>
+
+                        <!-- Upload Dropzone -->
+                        <div class="dropzone" id="proj-dropzone">
+                            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                            </svg>
+                            <p>Click or drag files here to upload (PNG, JPG, MP4, PDF)</p>
+                            <input type="file" id="proj-file-input" multiple accept="image/*,video/*,application/pdf" style="display: none;">
+                        </div>
+
+                        <div id="proj-upload-progress-container" class="upload-progress-wrap" style="display: none;">
+                            <div class="progress-bar-bg">
+                                <div id="proj-upload-progress-bar" class="progress-bar-fill" style="width: 0%;"></div>
+                            </div>
+                            <span id="proj-upload-progress-text">Uploading: 0%</span>
+                        </div>
+
+                        <!-- Direct URL adding option -->
+                        <div class="external-url-bar">
+                            <input type="text" id="proj-add-media-url" class="form-input" placeholder="Or paste existing image/video URL: images/projects/... or https://...">
+                            <button type="button" id="proj-add-url-btn" class="btn btn-quiet btn-sm">Add URL</button>
+                        </div>
+
+                        <!-- Current Media Gallery -->
+                        <div id="proj-media-gallery" class="media-gallery-preview"></div>
+                    </div>
+
+                    <div class="admin-modal-actions">
+                        <button type="button" id="cancel-project-btn" class="btn btn-quiet">Cancel</button>
+                        <button type="submit" id="save-project-btn" class="btn btn-neon">Save Project</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- BLOG POST EDITOR MODAL -->
+    <div class="project-modal-overlay" id="post-modal" aria-hidden="true">
+        <div class="project-modal-content admin-modal-content" role="dialog" aria-modal="true" aria-labelledby="post-modal-heading">
+            <button class="modal-close" id="close-post-modal" aria-label="Close modal">×</button>
+            <div class="modal-body">
+                <p class="eyebrow"><span></span> Article Editor</p>
+                <h2 id="post-modal-heading">Add New Blog Post</h2>
+
+                <form id="post-form" class="admin-form" onsubmit="event.preventDefault();">
+                    <input type="hidden" id="edit-post-is-edit" value="false">
+
+                    <div class="form-row form-row-2">
+                        <div class="form-group">
+                            <label for="post-form-title">Article Title *</label>
+                            <input type="text" id="post-form-title" class="form-input" placeholder="e.g. Developing DentAI Analytics" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="post-form-slug">Slug / ID *</label>
+                            <input type="text" id="post-form-slug" class="form-input" placeholder="e.g. dentai-analytics" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row form-row-3">
+                        <div class="form-group">
+                            <label for="post-form-app">Featured App</label>
+                            <input type="text" id="post-form-app" class="form-input" placeholder="e.g. DentAI Analytics">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-form-date">Publish Date</label>
+                            <input type="text" id="post-form-date" class="form-input" placeholder="e.g. Oct 2026">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-form-readtime">Read Time</label>
+                            <input type="text" id="post-form-readtime" class="form-input" placeholder="e.g. 5 min read">
+                        </div>
+                    </div>
+
+                    <div class="form-row form-row-2">
+                        <div class="form-group">
+                            <label for="post-form-app-url">App Live URL</label>
+                            <input type="url" id="post-form-app-url" class="form-input" placeholder="https://dentai.ainibot.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-form-github-url">GitHub URL</label>
+                            <input type="url" id="post-form-github-url" class="form-input" placeholder="https://github.com/EF361/...">
+                        </div>
+                    </div>
+
+                    <div class="form-row form-row-2">
+                        <div class="form-group">
+                            <label for="post-form-cover">Cover Image (URL or Path)</label>
+                            <input type="text" id="post-form-cover" class="form-input" placeholder="images/projects/dentai/analytics-page.png">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-form-tags">Tags (comma-separated)</label>
+                            <input type="text" id="post-form-tags" class="form-input" placeholder="AI, Computer Vision, Python">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post-form-excerpt">Short Summary / Excerpt *</label>
+                        <textarea id="post-form-excerpt" class="form-textarea" rows="2" placeholder="1-2 sentences summarizing the article..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="editor-label-toolbar">
+                            <label for="post-form-content">Article Content *</label>
+                            <div class="editor-quick-buttons">
+                                <button type="button" class="btn-tool" data-tool="h2">+ Heading</button>
+                                <button type="button" class="btn-tool" data-tool="code">+ Code Block</button>
+                                <button type="button" class="btn-tool" data-tool="ul">+ List</button>
+                                <button type="button" class="btn-tool" data-tool="bold">Bold</button>
+                            </div>
+                        </div>
+                        <textarea id="post-form-content" class="form-textarea" rows="12" placeholder="Write your article paragraphs here. You can use HTML (<p>, <h2>, <ul>, <pre><code>) or markdown paragraphs..." required></textarea>
+                    </div>
+
+                    <div class="admin-modal-actions">
+                        <button type="button" id="cancel-post-btn" class="btn btn-quiet">Cancel</button>
+                        <button type="submit" id="save-post-btn" class="btn btn-neon">Save Article</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script src="admin.js"></script>
+</body>
+</html>

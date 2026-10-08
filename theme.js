@@ -2,10 +2,11 @@ function updateThemeImages(theme) {
     const favicon = document.getElementById('favicon');
     const navLogo = document.getElementById('nav-logo');
     if (favicon) {
-        favicon.href = theme === 'dark' ? 'images/favicon-dark.png' : 'images/favicon-light.png';
+        favicon.href = theme === 'dark' ? 'images/favicon-dark.svg' : 'images/favicon-light.svg';
+        favicon.type = 'image/svg+xml';
     }
     if (navLogo) {
-        navLogo.src = theme === 'dark' ? 'images/logo-dark.png' : 'images/logo-light.png';
+        navLogo.src = theme === 'dark' ? 'images/logo-dark.svg' : 'images/logo-light.svg';
     }
 }
 
@@ -36,8 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.documentElement.setAttribute('data-theme', initialTheme);
     
-    // updateThemeImages can't be called here easily if DOM isn't parsed yet for nav-logo and favicon,
-    // but favicon can be set in HTML and logo too. We will rely on DOMContentLoaded for the initial image sync.
     window.addEventListener('DOMContentLoaded', () => {
         updateThemeImages(initialTheme);
     });

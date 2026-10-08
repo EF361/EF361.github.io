@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper function to check if the requester is the authorized admin
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == 'aliciagoh0704@gmail.com';
+    }
+
+    // Projects media files (images, video demos, PDF posters)
+    match /projects/{projectId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Blog media files (cover images, inline screenshots)
+    match /blog/{postId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

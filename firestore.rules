@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if the requester is the authorized admin
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == 'aliciagoh0704@gmail.com';
+    }
+
+    // Projects collection: public read, admin-only write
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Blog posts collection: public read, admin-only write
+    match /posts/{postId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

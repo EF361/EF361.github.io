@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" width="260" height="60">
+  <defs>
+    <linearGradient id="neonGreenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6cf6d5" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Hexagonal Tech Icon -->
+  <g transform="translate(10, 5)">
+    <!-- Hexagon Outer Glow Rim -->
+    <polygon points="25,2 45,13.5 45,36.5 25,48 5,36.5 5,13.5" fill="none" stroke="url(#neonGreenGrad)" stroke-width="2.5" filter="url(#glow)" />
+    <!-- Inner Circuit Nodes & AG Symbol -->
+    <path d="M16 34 L25 16 L34 34" fill="none" stroke="#6cf6d5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M19 28 L31 28" fill="none" stroke="#6cf6d5" stroke-width="2.5" stroke-linecap="round" />
+    <circle cx="25" cy="16" r="2.5" fill="#6cf6d5" />
+    <circle cx="16" cy="34" r="2.5" fill="#10b981" />
+    <circle cx="34" cy="34" r="2.5" fill="#10b981" />
+    <path d="M31 28 C 36 28, 36 34, 30 35 L 26 35" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+
+  <!-- Typography -->
+  <text x="68" y="32" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#f8fafc" letter-spacing="1">ALICIA GOH</text>
+  <text x="69" y="47" font-family="'Space Grotesk', sans-serif" font-size="9.5" font-weight="600" fill="#6cf6d5" letter-spacing="2.5">AI &amp; AUTOMATION</text>
+</svg>
