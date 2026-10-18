@@ -32,3 +32,14 @@ github: https://github.com/EF361/mermaid_editor
 icrawler
 url: https://icrawler.streamlit.app
 GitHub: https://github.com/EF361/my_crawler
+
+passgen
+url: https://intelligent-curie-alpha.vercel.app
+GitHub: https://github.com/EF361/passgen
+
+human-atlas
+url: https://human-atlas-seven.vercel.app
+GitHub: https://github.com/EF361/human-atlas
+
+kind-borg
+GitHub: https://github.com/EF361/kind-borg
