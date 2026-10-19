@@ -42,4 +42,5 @@ url: https://human-atlas-seven.vercel.app
 GitHub: https://github.com/EF361/human-atlas
 
 kind-borg
+url: https://kind-borg.vercel.app
 GitHub: https://github.com/EF361/kind-borg

@@ -73,25 +73,49 @@ const projectMetadata = {
 /* Offline/local fallback. GitHub discovery replaces these lists when available. */
 const projectAssetFallback = {
     dentai: ["images/projects/dentai/analytics-page.png"],
-    "elderly-management": ["images/projects/elderly-management/preview.png"],
-    "epf-calculator": ["images/projects/epf-calculator/preview.png"],
+    "elderly-management": ["images/projects/elderly-management/dashboard.png"],
+    "epf-calculator": ["images/projects/epf-calculator/dashboard.png"],
     "flappy-bird": [
         "images/projects/flappy-bird/gameplay.png",
         "images/projects/flappy-bird/home-page.png",
         "images/projects/flappy-bird/setting-page.png"
     ],
-    "human-atlas": ["images/projects/human-atlas/preview.png"],
-    icrawler: ["images/projects/icrawler/preview.png"],
-    invoice: ["images/projects/invoice/preview.png"],
-    "kind-borg": ["images/projects/kind-borg/preview.png"],
+    "human-atlas": [
+        "images/projects/human-atlas/heart.png",
+        "images/projects/human-atlas/lungs.png",
+        "images/projects/human-atlas/brain.png",
+        "images/projects/human-atlas/kidney.png",
+        "images/projects/human-atlas/skull.png",
+        "images/projects/human-atlas/skeleton.png"
+    ],
+    icrawler: ["images/projects/icrawler/dashboard.png"],
+    invoice: ["images/projects/invoice/dashboard.png"],
+    "kind-borg": [
+        "images/projects/kind-borg/virtual-apparatus.png",
+        "images/projects/kind-borg/studio-dashboard.png",
+        "images/projects/kind-borg/visualproof-demo.gif",
+        "images/projects/kind-borg/architecture-flowchart.gif"
+    ],
     "mermaid-editor": ["images/projects/mermaid-editor/preview.png"],
     "mindcraft-puzzle": [
         "images/projects/mindcraft-puzzle/dashboard-dark.png",
         "images/projects/mindcraft-puzzle/dashboard-light.png",
+        "images/projects/mindcraft-puzzle/level-selection.png",
+        "images/projects/mindcraft-puzzle/account-page.png",
         "images/projects/mindcraft-puzzle/sudoku.png",
-        "images/projects/mindcraft-puzzle/account-page.png"
+        "images/projects/mindcraft-puzzle/minesweeper.png",
+        "images/projects/mindcraft-puzzle/math-puzzle.png",
+        "images/projects/mindcraft-puzzle/nonogram.png",
+        "images/projects/mindcraft-puzzle/block-blast.png",
+        "images/projects/mindcraft-puzzle/whisker-grid.png"
     ],
-    passgen: ["images/projects/passgen/preview.png"],
+    passgen: [
+        "images/projects/passgen/dashboard-dark.png",
+        "images/projects/passgen/passphrase-mode.png",
+        "images/projects/passgen/batch-generator.png",
+        "images/projects/passgen/session-history.png",
+        "images/projects/passgen/dashboard-light.png"
+    ],
     "pdf-fusion-pro": ["images/projects/pdf-fusion-pro/dashboard.png"],
     "smart-recycling-robot": [
         "images/projects/smart-recycling-robot/playground.jpg",
