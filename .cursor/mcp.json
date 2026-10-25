@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "alicia-portfolio": {
+      "command": "node",
+      "args": ["./mcp/index.js"]
+    }
+  }
+}

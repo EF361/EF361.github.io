@@ -1,0 +1,14 @@
+{
+  "name": "portfolio-mcp-server",
+  "version": "1.0.0",
+  "description": "Dedicated Model Context Protocol (MCP) server for Alicia Goh's portfolio and GitHub project synchronization",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test-harness.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1"
+  }
+}
