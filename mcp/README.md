@@ -1,62 +1,35 @@
 # Alicia Goh Portfolio MCP Server
 
-A dedicated [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server enabling AI models (in Cursor, Claude Desktop, Antigravity, etc.) to discover, update, validate, and deploy Alicia Goh's portfolio (`EF361.github.io`) and GitHub projects (`EF361`).
+A dedicated [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server enabling AI models (Claude Mobile, Claude Desktop, Cursor, Antigravity) to inspect, edit, add projects, and publish to Alicia Goh's portfolio (`EF361.github.io`) and GitHub projects (`EF361`).
 
 ---
 
-## Capabilities & Available Tools
+## Remote Cloud Connection (Claude Mobile & Web via Vercel)
 
-| Tool | Purpose | Key Inputs |
-| :--- | :--- | :--- |
-| `list_portfolio_projects` | Lists all projects currently in `projects.js` and `github-url.txt` with their metadata, tags, and links. | *(none)* |
-| `scan_github_repos` | Scans GitHub for public repositories owned by `EF361`, reporting newly created or unregistered projects. | `username` (default: `"EF361"`), `token` (optional) |
-| `add_or_update_project` | Safely adds or updates a project in `projects.js` and `github-url.txt`, optionally capturing a live preview screenshot. | `id`, `title`, `description`, `tags`, `demoUrl`, `githubUrl`, `autoCaptureScreenshot` |
-| `capture_project_screenshot` | Fetches a screenshot of a live demo URL via Microlink API and writes it directly to `images/projects/<id>/preview.png`. | `id`, `url` |
-| `list_blog_posts` | Lists all blog posts and metadata from `posts.js`. | *(none)* |
-| `add_or_update_blog_post` | Creates or updates a blog post entry in `posts.js` with structured metadata and formatted HTML. | `id`, `title`, `date`, `readTime`, `tags`, `excerpt`, `content` |
-| `validate_portfolio` | Runs Node syntax validation (`node -c`) on `projects.js` and `posts.js`, audits disk asset references, and returns a health report. | *(none)* |
-| `publish_to_portfolio` | Runs validation, stages changes, creates a Git commit, and pushes to `origin/main` (automatically triggering Vercel redeployment). | `commitMessage` |
+You can connect Claude on your **phone (iOS / Android)** or **browser (claude.ai)** directly via your public Vercel endpoint:
+
+```
+https://alicia-goh-portfolio.vercel.app/api/mcp
+```
+
+### Setup Steps for Phone / Claude.ai:
+1. Open **[claude.ai](https://claude.ai)** in any browser.
+2. Go to **Settings** → **Connectors** → **Add connector** → **Remote**.
+3. Fill in:
+   - **Name**: `Alicia Portfolio`
+   - **URL**: `https://alicia-goh-portfolio.vercel.app/api/mcp`
+4. If you want Claude to make commits to your GitHub repo, provide your GitHub Personal Access Token (classic with `repo` scope or fine-grained with read/write contents permissions) in your Vercel Project Settings as `GITHUB_TOKEN`, or pass it as a Bearer token in the connector's Authorization header.
+5. Save. It will immediately sync to your **Claude mobile app** on your phone!
 
 ---
 
-## Client Setup Guides
+## Local Desktop Connection (Cursor & Claude Desktop on PC)
 
-### 1. Cursor Setup
-This repository includes a pre-configured `.cursor/mcp.json` file. Cursor Composer and Chat will automatically discover the MCP server tools when this project is open in Cursor.
+### In Cursor
+Cursor will automatically detect [`.cursor/mcp.json`](../.cursor/mcp.json) in this repository.
 
-If configuring globally or manually in Cursor:
-```json
-{
-  "mcpServers": {
-    "alicia-portfolio": {
-      "command": "node",
-      "args": ["c:/Users/alici/Downloads/projects/EF361.github.io/mcp/index.js"]
-    }
-  }
-}
-```
-
-### 2. Claude Desktop Setup
-Add the following to your Claude Desktop configuration file:
-- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
-- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-
-```json
-{
-  "mcpServers": {
-    "alicia-portfolio": {
-      "command": "node",
-      "args": ["c:/Users/alici/Downloads/projects/EF361.github.io/mcp/index.js"],
-      "env": {
-        "GITHUB_TOKEN": "<YOUR_OPTIONAL_GITHUB_PAT>"
-      }
-    }
-  }
-}
-```
-
-### 3. Antigravity / Gemini CLI Setup
-Add to `~/.gemini/config/mcp_config.json`:
+### In Claude Desktop (PC)
+Add to `%APPDATA%\Claude\claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
@@ -70,16 +43,21 @@ Add to `~/.gemini/config/mcp_config.json`:
 
 ---
 
-## Local Verification & Development
+## Available Tools
 
-To test the MCP server utilities locally without launching an AI client:
-```bash
-cd mcp
-node test-harness.js
-```
+| Tool | Purpose |
+| :--- | :--- |
+| `list_portfolio_projects` | Lists all projects, metadata, tags, and links from `projects.js`. |
+| `scan_github_repos` | Discovers public `EF361` repositories on GitHub and flags new ones. |
+| `add_or_update_project` | Adds or updates a project in `projects.js` and `github-url.txt`, captures a live screenshot, and commits to GitHub. |
+| `capture_project_screenshot` | Fetches a screenshot via Microlink API and commits to `images/projects/<id>/preview.png`. |
+| `list_blog_posts` | Lists all blog posts from `posts.js`. |
+| `add_or_update_blog_post` | Creates or updates a blog post in `posts.js` and commits to GitHub. |
 
-To run the MCP server directly via stdio:
+---
+
+## Local Testing
 ```bash
-cd mcp
-node index.js
+node mcp/test-harness.js
+node mcp/test-remote-handler.js
 ```
