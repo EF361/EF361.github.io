@@ -1,92 +1,113 @@
-# EF361.github.io ![GitHub Pages](https://img.shields.io/badge/Deployment-GitHub%20Pages-brightgreen) ![JavaScript ES6+](https://img.shields.io/badge/JavaScript-ES6%2B-yellow) ![License](https://img.shields.io/badge/License-MIT-blue) ![Demo](https://img.shields.io/badge/Live-Demo-success)
+# EF361.github.io
 
-## Executive Summary
-**EF361.github.io** is a fully responsive and accessible portfolio site built with semantic HTML, modern CSS, and JavaScript ES6+. It showcases the engineering excellence of Alicia Goh (EF361), while leveraging CI/CD automation, dynamic performance auditing, and optimized asset pipelines to maintain a lightweight, high-performance user experience.
+A personal portfolio and blog showcasing projects, achievements, and skills.
 
-## Key Features
-- **Blazing Performance**: Lighthouse Scores - Performance: 95+, Accessibility: 100, Best Practices: 100, SEO: 100 ([CI Artifact Example](https://<your-ci-artifact-link>))
-- **Automated Accessibility Audits**: Integrated `axe-core` to detect and remediate ARIA and WCAG violations.
-- **Responsive Design**: Mobile-first layouts with fluid scaling and AVIF/WebP image variants for ultra-fast delivery on all screen sizes.
-- **Optimized Asset Management**: Media moved to GitHub LFS with minimized repository size; unused assets removed during reproducible build steps.
-- **End-to-End CI/CD**: GitHub Actions powers the deployment pipeline with automated quality checks, including performance budgets and visual regression tests.
-- **Error Detection and Validation**: Automated HTML validation and link health checks in the CI pipeline.
-- **Unit Testing for JavaScript**: Focused unit tests ensure app robustness and prevent regressions.
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
 
-## Architecture & Workflow
-The following diagram provides a high-level overview of the project architecture and CI/CD workflow:
+[Live Demo](https://alicia-goh-portfolio.vercel.app)
+<!-- Screenshot: add docs/screenshot.png -->
+
+## Overview
+
+This repository contains the code for Alicia Goh's personal portfolio and blog. It serves as a centralized showcase of projects, certificates, and experiences, as well as a platform for blogging about topics of interest.
+
+## Features
+
+- **Portfolio Section**: Highlight notable projects with images and details (e.g., `images/projects/`).
+- **Certificates Gallery**: Display earned certifications in categorized folders (e.g., `certificates/`).
+- **Blog Posts**: Share thoughts and insights via `blog.html` and `blog.js`.
+- **Responsive Design**: Adjusts layout for various screen sizes (`style.css`).
+- **Firebase Integration**: Real-time storage and authentication via `firebase-config.js` and `firestore.rules`.
+- **Custom Theme Switching**: Switch between light and dark modes using `theme.js`.
+
+## How It Works
 
 ```mermaid
 flowchart TD
-    A["Local Development Environment"] -->|"Code commits"| B["GitHub Repository"]
-    B -->|"Push to 'main' branch"| C["GitHub Actions Workflow"]
-    C -->|"Run CI Checks"| D["Automated Tests & Audits"]
-    D -->|"Lighthouse CI: Performance and Accessibility Audits"| E["Lighthouse Artifacts"]
-    D -->|"axe-core: Accessibility Validation"| F["WCAG/ARIA Reports"]
-    D -->|"HTML Validator: Static Analysis"| G["Validation Logs"]
-    C -->|"Reproducible Build Process"| H["AVIF/WebP Asset Generation"]
-    H -->|"Deploy Optimized Build"| I["GitHub Pages Hosting"]
-    I -->|"Live Portfolio"| J["User"]
+  A["Visitor lands on homepage (index.html)"]
+  A -->|"Clicks project details"| B["Projects section (projects.js)"]
+  A -->|"Views certificates"| C["Certificates page (certificates.js)"]
+  A -->|"Reads blog post"| D["Blog page (blog.js)"]
+  B -->|"Loads project preview"| E["Images from /images/projects"]
+  C -->|"Loads document"| F["PDFs and images from /certificates"]
+  D -->|"Fetches blog content"| G["JavaScript in blog.js"]
 ```
 
-## Tech Stack & Tools Breakdown
-- **Languages**: JavaScript ES6+, HTML5, CSS3
-- **Frameworks & Libraries**: ARIA, axe-core
-- **Build Tools**: GitHub Actions (CI/CD automation), Lighthouse CI
-- **Hosting**: GitHub Pages
-- **Testing**: Lighthouse CI, axe-core, HTML validation, link tests, visual regression testing, and JS unit tests
-- **Optimization**: AVIF/WebP image formats, Git LFS for large files
+## Tech Stack
 
-## Quickstart / Installation
-Follow the steps below to set up the project locally and run it.
+- **Language**: JavaScript (ES6)
+- **Styling**: CSS
+- **Backend Services**: Firebase
 
-### Pre-requisites
-- Node.js (v16+)
-- npm (v7+)
-- Git
+## Getting Started
+
+### Prerequisites
+
+- Node.js installed on your machine.
 
 ### Steps
-1. **Clone the Repository**:
+
+1. Clone the repository:
+
    ```bash
    git clone https://github.com/EF361/EF361.github.io.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
    cd EF361.github.io
    ```
 
-2. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
+3. Open the `index.html` file in your browser or deploy to a static hosting platform.
 
-3. **Run the Local Development Server**:
-   ```bash
-   npm start
-   ```
+## Project Structure
 
-4. **Build Optimized Output**:
-   ```bash
-   npm run build
-   ```
+```
+EF361.github.io/
+├── .gitignore
+├── admin.html
+├── blog.html
+├── blog.js
+├── certificates/
+│   ├── create-an-adventure-game-using-python.pdf
+│   ├── dean's award/
+│   │   ├── Dean's Award Sem 1 20222023.pdf
+│   │   └── Dean's Award Sem 2 20222023.pdf
+│   └── google-ai-essentials.pdf
+├── firebase-config.js
+├── images/
+│   └── projects/
+│       ├── epf-calculator/
+│       │   ├── dashboard.png
+│       │   └── preview.png
+│       └── kind-borg/
+│           ├── architecture-flowchart.gif
+│           └── preview.png
+├── index.html
+├── projects.js
+├── style.css
+├── theme.js
+└── vercel.json
+```
 
-5. **Run CI Checks Locally** (optional):
-   ```bash
-   npm test
-   ```
+## Testing
 
-### CI/CD Commands
-The following commands reflect the automated deployments and validations run during GitHub Actions workflows:
-- **Trigger Performance/Accessibility Audits**:
-  ```bash
-  npm run lighthouse-ci
-  ```
-- **Run HTML Validation and Link Checks**:
-  ```bash
-  npm run validate-html
-  npm run check-links
-  ```
+Run tests using the test harness script located in `mcp/test-harness.js`:
 
-### Deployment
-Optimized builds are deployed automatically to GitHub Pages upon successful merge into the `main` branch.
+```bash
+node mcp/test-harness.js
+```
+
+This tests specific functionalities related to modular components (e.g., `mcp/utils/`).
+
+## Roadmap
+
+- [ ] Add CI/CD workflow for deployment.
+- [ ] Include a metadata SEO optimization script.
+- [ ] Document testing procedures in detail.
+- [ ] Optimize images for faster page load times.
 
 ---
 
-## Project Goals
-By prioritizing semantic coding, accessible design, and sustainable development practices, **EF361.github.io** aims to establish Alicia Goh as a leader in AI and software engineering. This portfolio is not just a showcase of front-end expertise but a testament to end-to-end engineering excellence in modern web applications.
+Built by [Alicia Goh](https://github.com/EF361)
