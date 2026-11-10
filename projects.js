@@ -73,6 +73,7 @@ const projectMetadata = {
 /* Offline/local fallback. GitHub discovery replaces these lists when available. */
 const projectAssetFallback = {
     dentai: [
+        "images/projects/dentai/00-dashboard.png",
         "images/projects/dentai/01-home.png",
         "images/projects/dentai/02-telegram-chats.png",
         "images/projects/dentai/03-mobile.png"
