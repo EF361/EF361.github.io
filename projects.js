@@ -15,8 +15,8 @@ const projectMetadata = {
     },
     dentai: {
         title: "DentAI Analytics",
-        description: "An AI-assisted dental imaging and analytics experience for clearer diagnostic insights.",
-        tags: ["AI", "Computer Vision", "Healthcare", "Analytics"]
+        description: "An AI front desk for dental clinics: a Telegram and web chat assistant that answers routine questions, books appointments and sends reminders, with a role-based clinic dashboard. My Final Year Project.",
+        tags: ["AI", "RAG", "n8n", "Supabase", "Healthcare"]
     },
     "mindcraft-puzzle": {
         title: "Mindcraft Puzzle",
@@ -72,7 +72,12 @@ const projectMetadata = {
 
 /* Offline/local fallback. GitHub discovery replaces these lists when available. */
 const projectAssetFallback = {
-    dentai: ["images/projects/dentai/analytics-page.png"],
+    dentai: [
+        "images/projects/dentai/00-dashboard.png",
+        "images/projects/dentai/01-home.png",
+        "images/projects/dentai/02-telegram-chats.png",
+        "images/projects/dentai/03-mobile.png"
+    ],
     "elderly-management": ["images/projects/elderly-management/dashboard.png"],
     "epf-calculator": ["images/projects/epf-calculator/dashboard.png"],
     "flappy-bird": [
@@ -116,7 +121,10 @@ const projectAssetFallback = {
         "images/projects/passgen/session-history.png",
         "images/projects/passgen/dashboard-light.png"
     ],
-    "pdf-fusion-pro": ["images/projects/pdf-fusion-pro/dashboard.png"],
+    "pdf-fusion-pro": [
+        "images/projects/pdf-fusion-pro/01-merge.png",
+        "images/projects/pdf-fusion-pro/02-unlock.png"
+    ],
     "smart-recycling-robot": [
         "images/projects/smart-recycling-robot/playground.jpg",
         "images/projects/smart-recycling-robot/team-photo.jpg",

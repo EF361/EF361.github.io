@@ -1,0 +1,30 @@
+{
+  "id": "project-id",
+  "title": "",
+  "month": "YYYY-MM",
+  "type": "tool | game | ai-system | automation | hardware",
+  "status": "Live | Prototype | Archived",
+  "summary": "One sentence a visitor can understand in 5 seconds.",
+  "links": { "live": "", "github": "", "paper": "" },
+  "brief": {
+    "problem": "What problem or challenge was it?",
+    "goal": "What did you want to achieve?"
+  },
+  "role": {
+    "mine": ["What you personally did"],
+    "team": [{ "name": "", "contribution": "" }]
+  },
+  "process": [
+    { "step": "Research", "text": "" },
+    { "step": "Design", "text": "" },
+    { "step": "Build", "text": "" }
+  ],
+  "stack": [],
+  "impact": [
+    { "metric": "", "value": "", "source": "Where the number comes from" }
+  ],
+  "visuals": [
+    { "src": "images/projects/<id>/<file>", "alt": "", "caption": "" }
+  ],
+  "confidential_checked": false
+}
