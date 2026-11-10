@@ -1,0 +1,67 @@
+{
+  "id": "pdf-fusion-pro",
+  "title": "PDF Fusion Pro: a private PDF merge and unlock dashboard",
+  "month": "2026-04",
+  "type": "tool",
+  "status": "Live",
+  "summary": "A Streamlit dashboard that merges, reorders, password-protects and unlocks PDFs in memory, without saving files to disk.",
+  "links": {
+    "live": "https://mergepdfwizard.streamlit.app",
+    "github": "https://github.com/EF361/pdf_merger",
+    "paper": ""
+  },
+  "brief": {
+    "problem": "Free online PDF mergers ask you to upload contracts and payslips to a server you know nothing about. For legal or financial documents, that is a real privacy risk.",
+    "goal": "Build a merge tool where privacy is the default: files are handled in memory, nothing is stored, the result can be password-protected, and you see page counts and sizes before you merge."
+  },
+  "role": {
+    "mine": [
+      "Sole developer: planned the features, wrote the merge, unlock and password logic, and designed the dark dashboard.",
+      "Built and deployed it over one weekend."
+    ],
+    "team": []
+  },
+  "process": [
+    {
+      "step": "Research",
+      "text": "Looked at why people use online mergers and what they give up. Decided the tool should run on the user's own machine and keep files in memory only."
+    },
+    {
+      "step": "Design",
+      "text": "A control panel for the output name and password, a queue table with pages and size per file, summary numbers on top, and one clear Merge button."
+    },
+    {
+      "step": "Build",
+      "text": "pypdf reads and joins the files in memory. A drag-and-drop list sets the order. An optional password protects the merged file. Nothing is written to disk."
+    },
+    {
+      "step": "Extend",
+      "text": "Added an Unlock tab for PDFs where you know the password. It tells you if a file is open, restricted or password-protected before it tries."
+    },
+    {
+      "step": "Limits",
+      "text": "Run it on your own machine and nothing leaves it. The hosted demo runs on Streamlit's servers, so try it with sample files only."
+    }
+  ],
+  "stack": [
+    "Python",
+    "Streamlit",
+    "pypdf",
+    "streamlit-sortables",
+    "cryptography"
+  ],
+  "impact": [],
+  "visuals": [
+    {
+      "src": "images/projects/pdf-fusion-pro/01-merge.png",
+      "alt": "PDF Fusion Pro merge tab with two demo PDFs queued: 2 documents, 5 pages, a drag-and-drop order list and a Begin Merge Sequence button",
+      "caption": "Merge tab: page and size counts, drag-and-drop order, and an optional password in the control panel. Demo files only."
+    },
+    {
+      "src": "images/projects/pdf-fusion-pro/02-unlock.png",
+      "alt": "PDF Fusion Pro unlock tab asking for a locked PDF",
+      "caption": "Unlock tab: remove the password from a PDF you already have the password for."
+    }
+  ],
+  "confidential_checked": true
+}

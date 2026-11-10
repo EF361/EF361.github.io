@@ -121,7 +121,10 @@ const projectAssetFallback = {
         "images/projects/passgen/session-history.png",
         "images/projects/passgen/dashboard-light.png"
     ],
-    "pdf-fusion-pro": ["images/projects/pdf-fusion-pro/dashboard.png"],
+    "pdf-fusion-pro": [
+        "images/projects/pdf-fusion-pro/01-merge.png",
+        "images/projects/pdf-fusion-pro/02-unlock.png"
+    ],
     "smart-recycling-robot": [
         "images/projects/smart-recycling-robot/playground.jpg",
         "images/projects/smart-recycling-robot/team-photo.jpg",
